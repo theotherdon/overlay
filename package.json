@@ -1,0 +1,12 @@
+{
+  "name": "widget",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:theotherdon/overlay.git",
+  "author": "Don Schrimsher <don@integrastrategy.io>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.2"
+  }
+}
