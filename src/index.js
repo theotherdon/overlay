@@ -2,13 +2,12 @@
   document.addEventListener("DOMContentLoaded", (event) => {
     const links = document.querySelectorAll("a")
     links.forEach((link) => {
-      if (link.href.indexOf("gumroad.com") != -1) {
-        link.onclick = (event) => {
-          event.preventDefault()
-          const div = buildDiv()
-          const iframe = buildIFrame(link)
-          div.appendChild(iframe)
-          document.body.appendChild(div)
+      if (isGumroadLink(link)) {
+        const parent = link.parentElement
+        if (isProductEmbed(link, parent)) {
+          embedProduct(link, parent)
+        } else {
+          setupIFrameModal(link)
         }
       }
     })
@@ -33,6 +32,34 @@
     iframe.style.width = "90%"
     iframe.style.height = "90%"
     iframe.style.margin = "auto auto"
+    iframe.style.display = "block"
     return iframe
+  }
+
+  function isProductEmbed(link, parent) {
+    const classList = parent.classList || { value: "" }
+    return classList.value.indexOf("gumroad-product-embed") != -1
+  }
+
+  function embedProduct(link, parent) {
+    const iframe = buildIFrame(link)
+    iframe.onload = (event) => {
+      link.remove()
+    }
+    parent.appendChild(iframe)
+  }
+
+  function setupIFrameModal(link) {
+    link.onclick = (event) => {
+      event.preventDefault()
+      const div = buildDiv()
+      const iframe = buildIFrame(link)
+      div.appendChild(iframe)
+      document.body.appendChild(div)
+    }
+  }
+
+  function isGumroadLink(link) {
+    return link.href.indexOf("gumroad.com") != -1
   }
 })()
