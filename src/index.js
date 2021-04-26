@@ -50,6 +50,7 @@
   }
 
   function setupIFrameModal(link) {
+    styleLink(link)
     link.onclick = (event) => {
       event.preventDefault()
       const div = buildDiv()
@@ -57,6 +58,18 @@
       div.appendChild(iframe)
       document.body.appendChild(div)
     }
+  }
+
+  function styleLink(link) {
+    link.style = link.style.backgroundColor = "white !important"
+    link.style.backgroundImage =
+      "url(https://gumroad.com/button/button_bar.jpg) !important;"
+    link.style.backgroundRepeat = "repeat-x !important;"
+    link.style.borderRadius = "4px !important;"
+    link.style.boxShadow = "rgb(0 0 0 / 40%) 0 0 2px !important;"
+    link.style.color = "#999 !important;"
+    link.style.display = "inline-block !important;"
+    link.style.padding = "0 15px !important;"
   }
 
   function isGumroadLink(link) {
